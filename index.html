@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REXIN STORE</title>
+    <style>
+        /* ستايل البراند الأسود الفخم والعمق المودرن */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: #121212;
+            border-bottom: 1px solid #222;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .logo span {
+            color: #888;
+        }
+
+        .cart-icon-container {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon-container:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .category-title {
+            margin: 40px auto 20px auto;
+            text-align: right;
+        }
+
+        .category-title h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            border-right: 4px solid #fff;
+            padding-right: 12px;
+        }
+
+        /* شبكة المنتجات الـ 8 وتأثير الـ 3D المودرن للبراند */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 35px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: #141414;
+            border: 1px solid #1f1f1f;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: #444;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background-color: #222;
+        }
+
+        .product-card h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #f0f0f0;
+            height: 44px;
+            overflow: hidden;
+        }
+
+        .product-card .price {
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .size-select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #292929;
+            background-color: #0d0d0d;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            width: 100%;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .add-btn:hover {
+            background-color: #111;
+            color: #fff;
+            border: 1px solid #fff;
+        }
+
+        /* نافذة السلة الجانبية */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            background: #121212;
+            border-left: 1px solid #222;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.7);
+            z-index: 1000;
+            transition: 0.4s ease;
+            overflow-y: auto;
+        }
+
+        .cart-modal.open {
+            right: 0;
+        }
+
+        .modal-content {
+            padding: 25px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            font-size: 30px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #222;
+        }
+
+        .remove-item {
+            color: #ff4444;
+            cursor: pointer;
+        }
+
+        .cart-total {
+            margin: 25px 0;
+            font-size: 20px;
+            border-top: 1px solid #222;
+            padding-top: 15px;
+        }
+
+        .checkout-form {
+            border-top: 2px solid #fff;
+            padding-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #222;
+            background-color: #0b0b0b;
+            color: #fff;
+            border-radius: 6px;
+        }
+
+        .btn-order {
+            width: 100%;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn-order:hover {
+            background: linear-gradient(45deg, #f09433, #bc1888);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-flex">
+            <div class="logo">REXIN<span>.EG</span></div>
+            <div class="cart-icon-container" onclick="toggleCartModal()">
+                🛒 السلة (<span id="cart-count">0</span>)
+            </div>
+        </div>
+    </header>
+
+    <div class="category-title container">
+        <h2>THE DROP • التشكيلة الحصرية 🔥</h2>
+    </div>
+
+    <main class="container">
+        <section class="products-grid">
+            
+            <div class="product-card">
+                <img src="images/7.jpeg" alt="تيشرت REXIN">
+                <h3>تيشرت REXIN اسود - الظهر الحصري</h3>
+                <div class="price">500 ج.م</div>
+                <select id="size-1" class="size-select">
+                    <option value="M">مقاس: M</option>
+                    <option value="L">مقاس: L</option>
+                    <option value="XL">مقاس: XL</option>
+                    <option value="XXL">مقاس: XXL</option>
+                </select>
+                <button class="add-btn" onclick="addToCart(1, 'تيشرت REXIN الأبيض - الظهر الحصري', 500)">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/6.jpeg" alt="تيشرت REXIN">
+                <h3>تيشرت REXIN اسود - الموديل الأساسي</h3>
+                <div class="price">500 ج.م</div>
+                <select id="size-2" class="size-select">
+                    <option value="M">مقاس: M</option>
+                    <option value="L">مقاس: L</option>
+                    <option value="XL">مقاس: XL</option>
+                    <option value="XXL">مقاس: XXL</option>
+                </select>
+                <button class="add-btn" onclick="addToCart(2, 'تيشرت REXIN الأسود - الموديل الأساسي', 500)">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/2.jpeg" alt="عرض قطعتين">
+                <h3>عرض خاص: قطعتين تيشرت REXIN (أبيض + أسود)</h3>
+                <div class="price">900 ج.م</div>
+                <select id="size-3" class="size-select">
+                    <option value="M">مقاس: M</option>
+                    <option value="L">مقاس: L</option>
+                    <option value="XL">مقاس: XL</option>
+                    <option value="XXL">مقاس: XXL</option>
+                </select>
+                <button class="add-btn" onclick="addToCart(3, 'عرض خاص: قطعتين تيشرت REXIN', 900)">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/9.jpeg" alt="تيشرت REXIN">
+                <h3>تيشرت REXIN بيسك - لوجو صغير</h3>
+                <div class="price">500 ج.م</div>
+                <select id="size-4" class="size-select">
+                    <option value="M">مقاس: M</option>
+                    <option value="L">مقاس: L</option>
+                    <option value="XL">مقاس: XL</option>
+                    <option value="XXL">مقاس: XXL</option>
+                </select>
+                <button class="add-btn" onclick="addToCart(4, 'تيشرت REXIN بيسك - لوجو صغير', 500)">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/4.jpeg" alt="تيشرت REXIN">
+                <h3>تيشرت REXIN الأبيض - No Risk No Fun</h3>
+                <div class="price">500 ج.م</div>
+                <select id="size-5" class="size-select">
+                    <option value="M">مقاس: M</option>
+                    <option value="L">مقاس: L</option>
+                    <option value="XL">مقاس: XL</option>
+                    <option value="XXL">مقاس: XXL</option>
+                </select>
+                <button class="add-btn" onclick="addToCart(5, 'تيشرت REXIN الأبيض - No Risk No Fun', 500)">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/10.jpeg" alt="تيشرت REXIN">
+                <h3>تيشرت REXIN اسود - الستايل العصري</h3>
+                <div class="price">500 ج.م</div>
+                <select id="size-6" class="size-select">
+                    <option value="M">مقاس: M</option>
+                    <option value="L">مقاس: L</option>
+                    <option value="XL">مقاس: XL</option>
+                    <option value="XXL">مقاس: XXL</option>
+                </select>
+                <button class="add-btn" onclick="addToCart(6, 'تيشرت REXIN الأبيض - الستايل العصري', 500)">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/1.jpeg" alt="تيشرت REXIN">
+                <h3>تيشرت REXIN الأسود - No Risk No Fun خلفي</h3>
+                <div class="price">500 ج.م</div>
+                <select id="size-7" class="size-select">
+                    <option value="M">مقاس: M</option>
+                    <option value="L">مقاس: L</option>
+                    <option value="XL">مقاس: XL</option>
+                    <option value="XXL">مقاس: XXL</option>
+                </select>
+                <button class="add-btn" onclick="addToCart(7, 'تيشرت REXIN الأسود - خلفي', 500)">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/3.jpeg" alt="تيشرت REXIN">
+                <h3>تيشرت REXIN ابيض - لوجو خلفي</h3>
+                <div class="price">500 ج.م</div>
+                <select id="size-8" class="size-select">
+                    <option value="M">مقاس: M</option>
+                    <option value="L">مقاس: L</option>
+                    <option value="XL">مقاس: XL</option>
+                    <option value="XXL">مقاس: XXL</option>
+                </select>
+                <button class="add-btn" onclick="addToCart(8, 'تيشرت REXIN الأسود - لوجو أمامي', 500)">إضافة للسلة 🛒</button>
+            </div>
+
+        </section>
+    </main>
+
+    <div class="cart-modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>سلة المشتريات</h3>
+                <span class="close-btn" onclick="toggleCartModal()">&times;</span>
+            </div>
+            
+            <div id="cart-items-container"></div>
+
+            <div class="cart-total">
+                <strong>الإجمالي:</strong> <span id="cart-total-price">0</span> ج.م
+            </div>
+
+            <div class="checkout-form">
+                <h4>بيانات الشحن والتوصيل</h4>
+                <div class="form-group">
+                    <label>الاسم بالكامل:</label>
+                    <input type="text" id="customer-name" placeholder="اسم المستلم">
+                </div>
+                <div class="form-group">
+                    <label>رقم التليفون:</label>
+                    <input type="tel" id="customer-phone" placeholder="رقم الموبايل">
+                </div>
+                <div class="form-group">
+                    <label>العنوان بالتفصيل:</label>
+                    <input type="text" id="customer-address" placeholder="المحافظة والمدينة بالتفصيل">
+                </div>
+                <button class="btn-order" onclick="sendOrderToInstagram()">تأكيد الطلب عبر إنستجرام 📸</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        localStorage.clear();
+        let cart = [];
+
+        function toggleCartModal() {
+            const modal = document.getElementById("cartModal");
+            modal.classList.toggle("open");
+        }
+
+        function addToCart(id, name, price) {
+            const selectedSize = document.getElementById(`size-${id}`).value;
+            cart.push({ id, name, price, size: selectedSize });
+            updateCartUI();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            document.getElementById("cart-count").innerText = cart.length;
+            const container = document.getElementById("cart-items-container");
+            container.innerHTML = "";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>المقاس: ${item.size} | ${item.price} ج.م</small>
+                        </div>
+                        <span class="remove-item" onclick="removeFromCart(${index})">❌</span>
+                    </div>
+                `;
+            });
+            document.getElementById("cart-total-price").innerText = total;
+        }
+
+        function sendOrderToInstagram() {
+            const name = document.getElementById("customer-name").value.trim();
+            const phone = document.getElementById("customer-phone").value.trim();
+            const address = document.getElementById("customer-address").value.trim();
+
+            if (cart.length === 0) { alert("سلتك فارغة!"); return; }
+            if (!name || !phone || !address) { alert("برجاء ملء بيانات الشحن كاملة!"); return; }
+
+            alert("سيتم نقلك لإنستجرام المتجر لإرسال رسالة بالطلب!");
+            window.open("https://www.instagram.com/rexin_.eg?igsh=MTJzaTF5aXhqYzg5ZQ==", "_blank");
+        }
+    </script>
+</body>
+</html>
